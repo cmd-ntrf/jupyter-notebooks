@@ -8,32 +8,26 @@ set -eo pipefail
 
 # Ensure we are using the latest pip and wheel packages.
 
-pip install -U pip setuptools wheel
-
-# Install mod_wsgi for use in optional webdav support.
-
-pip install 'mod_wsgi==4.6.2'
+pip install --no-cache-dir -U pip setuptools wheel
 
 # Install base packages needed for running Jupyter Notebooks.
 
-pip install -r /tmp/src/requirements.txt
+pip install --no-cache-dir -r /tmp/src/requirements.txt
 
 # Activate JupyterHub extension for JupyterLab.
 
-JUPYTER_INSTALL_LAB=`echo "$JUPYTER_INSTALL_LAB" | tr '[A-Z]' '[a-z]'`
+JUPYTER_INSTALL_LAB=$(grep jupyterlab /tmp/src/requirements.txt && echo yes)
 
 if [[ "$JUPYTER_INSTALL_LAB" =~ ^(true|yes|y|1)$ ]]; then
-    jupyter labextension install @jupyterlab/hub-extension@^0.8.1
+    jupyter labextension install @jupyterlab/hub-extension
     npm cache clean --force
     rm -rf $HOME/.cache/yarn
     rm -rf $HOME/.node-gyp
 fi
 
-# Copy into place default config files for Jupyter and Apache webdav.
+# Copy into place default config files for Jupyter.
 
 cp /tmp/src/jupyter_notebook_config.py /opt/app-root/etc/
-cp /tmp/src/jupyter_kernel_gateway_config.py /opt/app-root/etc/
-cp /tmp/src/httpd-webdav.conf /opt/app-root/etc/
 
 # This S2I assemble script is only used when creating the custom image.
 # For when running the image, or using it as a S2I builder, we use a second
