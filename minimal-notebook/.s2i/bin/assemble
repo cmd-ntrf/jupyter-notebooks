@@ -16,13 +16,20 @@ pip install --no-cache-dir -r /tmp/src/requirements.txt
 
 # Activate JupyterHub extension for JupyterLab.
 
-JUPYTER_INSTALL_LAB=$(grep jupyterlab /tmp/src/requirements.txt && echo yes)
-
-if [[ "$JUPYTER_INSTALL_LAB" =~ ^(true|yes|y|1)$ ]]; then
+if grep -q jupyterlab /tmp/src/requirements.txt ; then
     jupyter labextension install @jupyterlab/hub-extension
     npm cache clean --force
     rm -rf $HOME/.cache/yarn
     rm -rf $HOME/.node-gyp
+fi
+
+# Jupyter Lmod extension
+if grep -q jupyterlmod /tmp/src/requirements.txt;
+    jupyter nbextension install --py jupyterlmod
+    if grep jupyterlab /tmp/src/requirements.txt;
+        jupyter labextension install jupyterlab-lmod
+        jupyter labextension disable jupyterlab-lmod
+    fi
 fi
 
 # Copy into place default config files for Jupyter.

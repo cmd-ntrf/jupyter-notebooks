@@ -11,6 +11,10 @@ if [ x"$JUPYTER_MASTER_FILES" != x"" ]; then
     fi
 fi
 
+if [[ "$JUPYTER_ENABLE_LMOD" =~ ^(true|yes|y|1)$ ]]; then
+    jupyter labextension enable jupyterlab-lmod
+fi
+
 JUPYTER_PROGRAM_ARGS="$JUPYTER_PROGRAM_ARGS --config=/opt/app-root/etc/jupyter_notebook_config.py"
 
 exec /opt/app-root/bin/start.sh jupyter lab $JUPYTER_PROGRAM_ARGS "$@"
