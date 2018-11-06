@@ -61,7 +61,7 @@
                 },
                 "resources": {
                     "limits": {
-                        "memory": "1Gi"
+                        "memory": "1000MB"
                     }
                 }
             }
@@ -124,7 +124,7 @@
                 },
                 "resources": {
                     "limits": {
-                        "memory": "1Gi"
+                        "memory": "1000MB"
                     }
                 }
             }
