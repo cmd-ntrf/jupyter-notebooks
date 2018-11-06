@@ -56,7 +56,7 @@
                 "output": {
                     "to": {
                         "kind": "ImageStreamTag",
-                        "name": "s2i-minimal-notebook"
+                        "name": "s2i-minimal-notebook:1.0"
                     }
                 },
                 "resources": {
