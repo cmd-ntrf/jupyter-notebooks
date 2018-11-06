@@ -25,7 +25,7 @@ pip install --no-cache-dir -r /tmp/src/requirements.txt
 
 # Jupyter Lmod extension
 if grep -q jupyterlmod /tmp/src/requirements.txt; then
-    jupyter nbextension install --py jupyterlmod
+    jupyter nbextension install --py jupyterlmod --sys-prefix
     # if grep jupyterlab /tmp/src/requirements.txt; then
         # jupyter labextension install jupyterlab-lmod
         # jupyter labextension disable jupyterlab-lmod
