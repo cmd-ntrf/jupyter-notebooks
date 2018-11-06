@@ -39,7 +39,7 @@
                     "type": "Git",
                     "git": {
                         "uri": "https://github.com/cmd-ntrf/jupyter-notebooks",
-                        "ref": "master"
+                        "ref": "simplify"
                     },
                     "contextDir": "minimal-notebook"
                 },
