@@ -34,6 +34,11 @@ else
     if [[ "$JUPYTER_ENABLE_LMOD" =~ ^(true|yes|y|1)$ ]]; then
         jupyter serverextension enable --py jupyterlmod --sys-prefix
         jupyter nbextension enable --py jupyterlmod --sys-prefix
+        # only expected way to provide R and RStudio for now is through CVMFS
+        if pip freeze -q 2> /dev/null | grep -q nbrsessionproxy; then
+            jupyter serverextension enable  --py --sys-prefix nbrsessionproxy
+            jupyter nbextension     enable  --py --sys-prefix nbrsessionproxy
+        fi
     fi
 
     JUPYTER_PROGRAM_ARGS="$JUPYTER_PROGRAM_ARGS --config=/opt/app-root/etc/jupyter_notebook_config.py"

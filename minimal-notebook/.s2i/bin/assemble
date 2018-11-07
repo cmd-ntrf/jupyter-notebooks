@@ -32,6 +32,10 @@ if grep -q jupyterlmod /tmp/src/requirements.txt; then
     # fi
 fi
 
+if grep -q nbrsessionproxy /tmp/src/requirements.txt; then
+    jupyter nbextension install --py --sys-prefix nbrsessionproxy
+fi
+
 # Copy into place default config files for Jupyter.
 
 cp /tmp/src/jupyter_notebook_config.py /opt/app-root/etc/
