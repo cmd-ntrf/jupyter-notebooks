@@ -27,10 +27,11 @@ else
         jupyter serverextension enable --py jupyterlmod --sys-prefix
         jupyter nbextension enable --py jupyterlmod --sys-prefix
 
-        if [[ -r /cvmfs/soft.computecanada.ca/config/profile/bash.sh ]]; then
-            source /cvmfs/soft.computecanada.ca/config/profile/bash.sh
-            # echo "sourcing lmod profile"
-        fi
+        for file in z-000-init.sh z-15-override.sh z-20-lmod.sh; do
+            if [[ -r /cvmfs/soft.computecanada.ca/config/profile.d/$file ]]; then
+                source /cvmfs/soft.computecanada.ca/config/profile.d/$file
+            fi
+        done
     fi
 
     JUPYTER_PROGRAM_ARGS="$JUPYTER_PROGRAM_ARGS --config=/opt/app-root/etc/jupyter_notebook_config.py"
