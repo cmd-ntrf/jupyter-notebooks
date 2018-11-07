@@ -31,6 +31,10 @@ else
         JUPYTER_PROGRAM_ARGS="$JUPYTER_PROGRAM_ARGS --NotebookApp.default_url=/tree/$JUPYTER_WORKSPACE_NAME"
     fi
 
+    if [ x"$JUPYTER_DEFAULT_URL" != x"" ]; then
+        JUPYTER_PROGRAM_ARGS="$JUPYTER_PROGRAM_ARGS --NotebookApp.default_url=$JUPYTER_DEFAULT_URL"
+    fi
+
     if [[ "$JUPYTER_ENABLE_LMOD" =~ ^(true|yes|y|1)$ ]]; then
         jupyter serverextension enable --py jupyterlmod --sys-prefix
         jupyter nbextension enable --py jupyterlmod --sys-prefix
