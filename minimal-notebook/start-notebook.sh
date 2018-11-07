@@ -32,7 +32,7 @@ else
     fi
 
     if [ x"$JUPYTER_RSTUDIO" != x"" ]; then
-        module load rstudio
+        module load rstudio-server
         JUPYTER_PROGRAM_ARGS="$JUPYTER_PROGRAM_ARGS --NotebookApp.default_url=/rstudio"
     fi
 
