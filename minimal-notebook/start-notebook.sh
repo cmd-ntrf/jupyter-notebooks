@@ -7,6 +7,14 @@ set -eo pipefail
 JUPYTER_ENABLE_LAB=`echo "$JUPYTER_ENABLE_LAB" | tr '[A-Z]' '[a-z]'`
 JUPYTER_ENABLE_LMOD=`echo "$JUPYTER_ENABLE_LMOD" | tr '[A-Z]' '[a-z]'`
 
+if [[ "$JUPYTER_ENABLE_LMOD" =~ ^(true|yes|y|1)$ ]]; then
+    for file in z-000-init.sh z-15-override.sh z-20-lmod.sh; do
+        if [[ -r /cvmfs/soft.computecanada.ca/config/profile.d/$file ]]; then
+            source /cvmfs/soft.computecanada.ca/config/profile.d/$file
+        fi
+    done
+fi
+
 if [[ ! -z "${JUPYTERHUB_API_TOKEN}" ]]; then
     exec /opt/app-root/bin/start-singleuser.sh "$@"
 elif [[ "$JUPYTER_ENABLE_LAB" =~ ^(true|yes|y|1)$ ]]; then
@@ -26,12 +34,6 @@ else
     if [[ "$JUPYTER_ENABLE_LMOD" =~ ^(true|yes|y|1)$ ]]; then
         jupyter serverextension enable --py jupyterlmod --sys-prefix
         jupyter nbextension enable --py jupyterlmod --sys-prefix
-
-        for file in z-000-init.sh z-15-override.sh z-20-lmod.sh; do
-            if [[ -r /cvmfs/soft.computecanada.ca/config/profile.d/$file ]]; then
-                source /cvmfs/soft.computecanada.ca/config/profile.d/$file
-            fi
-        done
     fi
 
     JUPYTER_PROGRAM_ARGS="$JUPYTER_PROGRAM_ARGS --config=/opt/app-root/etc/jupyter_notebook_config.py"
