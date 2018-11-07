@@ -26,8 +26,10 @@ else
     if [[ "$JUPYTER_ENABLE_LMOD" =~ ^(true|yes|y|1)$ ]]; then
         jupyter serverextension enable --py jupyterlmod --sys-prefix
         jupyter nbextension enable --py jupyterlmod --sys-prefix
+
         if [[ -r /cvmfs/soft.computecanada.ca/config/profile/bash.sh ]]; then
-            source /cvmfs/soft.computecanada.ca/config/profile/bash.sh
+            # source /cvmfs/soft.computecanada.ca/config/profile/bash.sh
+            echo "sourcing lmod profile"
         fi
     fi
 
