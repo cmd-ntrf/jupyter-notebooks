@@ -32,6 +32,10 @@ if grep -q jupyterlmod /tmp/src/requirements.txt; then
     # fi
 fi
 
+if grep -q nbserverproxy /tmp/src/requirements.txt; then
+    jupyter serverextension enable --py nbserverproxy --sys-prefix
+fi
+
 if grep -q nbrsessionproxy /tmp/src/requirements.txt; then
     jupyter nbextension install --py --sys-prefix nbrsessionproxy
 fi
